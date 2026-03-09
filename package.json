@@ -1,0 +1,9 @@
+{
+  "name": "sunheads-servant",
+  "version": "1.0.0",
+  "description": "Moderation bot for Sunhead's Servant",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "14.15.2"
+  }
+}
