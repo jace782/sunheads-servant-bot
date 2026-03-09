@@ -8,7 +8,8 @@ const client = new Client({
     ]
 });
 
-const prefix = "!";
+const prefix = process.env.PREFIX || "sun!";
+PREFIX = sun!
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
@@ -48,3 +49,31 @@ client.on("messageCreate", async (message) => {
 
 
 client.login(process.env.TOKEN);
+
+ client.on("messageCreate", async (message) => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+
+    // Commands go here 
+    
+});
+ if (command === "lock") {
+    if (!message.member.permissions.has("ManageChannels"))
+        return message.reply("You need **Manage Channels** to lock this.");
+
+    await message.channel.permissionOverwrites.edit(message.guild.id, {
+        SendMessages: false
+    });
+
+    message.reply("🔒 Channel locked.");
+}
+  if (command === "slowmode") {
+    const amount = parseInt(args[0]);
+    if (isNaN(amount)) return message.reply("Give me a number in seconds.");
+
+    await message.channel.setRateLimitPerUser(amount);
+    message.reply(`🐌 Slowmode set to **${amount} seconds**.`);
+}
+
